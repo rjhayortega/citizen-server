@@ -1,0 +1,50 @@
+import org.opentele.server.core.model.BootStrapUtil
+
+dataSource {
+    pooled = true
+    logSql = false
+}
+hibernate {
+    cache.use_second_level_cache = false
+    cache.use_query_cache = false
+//    cache.region.factory_class = 'org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory' // hibernate 4
+//    cache.region.factory_class = 'net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory' // hibernate 3
+}
+
+// environment specific settings
+environments {
+    development {
+        dataSource {
+            username = "sa"
+            password = ""
+            driverClassName = "org.h2.Driver"
+            dialect = "org.opentele.server.core.util.H2Dialect"
+            // dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:h2:citizenDb;MVCC=TRUE;IGNORECASE=TRUE"
+            // url = "jdbc:h2:mem:devDb;MVCC=TRUE;IGNORECASE=TRUE"
+        }
+    }
+    test {
+        dataSource {
+            username = "sa"
+            password = ""
+            driverClassName = "org.h2.Driver"
+            dialect = "org.opentele.server.core.util.H2Dialect"
+            // dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:h2:citizenDb;MVCC=TRUE;IGNORECASE=TRUE"
+            // url = "jdbc:h2:mem:devDb;MVCC=TRUE;IGNORECASE=TRUE"
+        }
+    }
+    performance {
+        dataSource {
+            pooled = true
+            dialect = "org.opentele.server.core.util.MySQLInnoDBDialect"
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "opentele"
+            password = "opentele"
+            dbCreate = 'create'
+            url = "jdbc:mysql://localhost:3306/opentele"
+        }
+    }
+}
+
